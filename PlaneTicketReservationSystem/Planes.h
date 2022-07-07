@@ -12,7 +12,7 @@ class Planes
 	std::string planeModel;
 	
 public:
-	Planes(int _id = 0, std::string _airline = "LOT", std::string _planeModel = "BOEING") : id(_id), airline(_airline), planeModel(_planeModel) {};
+	Planes(int _id, std::string _airline, std::string _planeModel) : id(_id), airline(_airline), planeModel(_planeModel) {};
 
 	virtual void show() = 0;
 };

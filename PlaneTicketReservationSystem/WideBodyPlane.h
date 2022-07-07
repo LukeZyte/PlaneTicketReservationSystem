@@ -1,13 +1,54 @@
 #pragma once
 #include "Planes.h"
+#include "Customer.h"
 
 #include <string>
+#include <vector>
+#include <iostream>
 
 // Samolot szerokopok³adowy <-- sekcja VIP, biznesowa, 2pokladowy
 class WideBodyPlane :
    public Planes
 {
+	int seatsCols;
+	int seatsRows;
+	int seatsLevels;		// 0 or 1
+	Customer*** seatsArray;		// [level][rows][cols]
+
+	void initSeatsArray();
+
 public:
-	WideBodyPlane(int _id, std::string _airlines, std::string _planeModel) : Planes(_id, _airlines, _planeModel) {};
+	WideBodyPlane(int _id, std::string _airlines, std::string _planeModel, int _seatsLevels, int _seatsCols, int _seatsRows) : Planes(_id, _airlines, _planeModel), seatsLevels(_seatsLevels), seatsCols(_seatsCols), seatsRows(_seatsRows)
+    {
+        initSeatsArray();
+    };
+
+    void setSeatsArray(int level, int row, int col, Customer& customer)
+    {
+        if (row <= seatsRows and row >= 0 and col <= seatsCols and col >= 0 and level <= seatsLevels and level >= 0)
+            seatsArray[level][row][col] = customer;
+        else
+            std::cout << "[ ERROR ] Failed to assign a value because its out of array's scope" << std::endl;
+    }
+
+    void show()
+    {
+        for (int level = 0; level < seatsLevels; level++)
+        {
+            for (int row = 0; row < seatsRows; row++)
+            {
+                for (int col = 0; col < seatsCols; col++)
+                {
+                    if (seatsArray[level][row][col].getPesel() == NULL)
+                        std::cout << "# ";
+                    else std::cout << "O ";
+                }
+                std::cout << std::endl;
+            }
+            std::cout << std::endl;
+            std::cout << std::endl;
+            std::cout << "PIETRO KOLEJNE" << std::endl;
+        }
+    }
 };
 
