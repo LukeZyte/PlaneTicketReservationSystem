@@ -14,6 +14,7 @@ class Planes
 public:
 	Planes(int _id, std::string _airline, std::string _planeModel) : id(_id), airline(_airline), planeModel(_planeModel) {};
 
+	int getId() { return id; }
 	virtual void show() = 0;
 };
 

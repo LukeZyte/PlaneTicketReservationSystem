@@ -3,33 +3,30 @@
 #include "Customer.h"
 
 #include <iostream>
+#include <vector>
 #include <string>
 
 // Samolot w¹skokad³ubowy <-- 1pok³adowy 
 class NarrowBodyPlane :
     public Planes
 {
-    // Number of columns and rows of seats
     int seatsCols;
     int seatsRows;
 
-    // 2D array of all seats from bottom left of a plane. (from front to back of a plane)
-    //  TRUE -> occupied, 
-    //  FALSE -> free
-    Customer** seatsArray;
+    std::vector<std::vector<Customer>> seatsVector;     // [rows][cols]
 
-    void initSeatsArray();
+    void initSeatsVector();
 
 public:
     NarrowBodyPlane(int _id, std::string _airlines, std::string _planeModel, int _seatsCols, int _seatsRows) : Planes(_id, _airlines, _planeModel), seatsCols(_seatsCols), seatsRows(_seatsRows)
     {
-        initSeatsArray();
+        initSeatsVector();
     };
 
-    void setSeatsArray(int row, int col, Customer& customer)
+    void setSeatsVector(int row, int col, Customer& customer)
     {
         if (row <= seatsRows and row >= 0 and col <= seatsCols and col >= 0)
-            seatsArray[row][col] = customer;
+            seatsVector[row][col] = customer;
         else
             std::cout << "[ ERROR ] Failed to assign a value because its out of array's scope" << std::endl;
     }
@@ -40,7 +37,7 @@ public:
         {
             for (int col = 0; col < seatsCols; col++)
             {
-                if (seatsArray[row][col].getPesel() == NULL)
+                if (seatsVector[row][col].getPesel() == NULL)
                     std::cout << "# ";
                 else std::cout << "O ";
             }

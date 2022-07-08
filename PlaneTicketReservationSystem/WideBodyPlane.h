@@ -12,21 +12,21 @@ class WideBodyPlane :
 {
 	int seatsCols;
 	int seatsRows;
-	int seatsLevels;		// 0 or 1
-	Customer*** seatsArray;		// [level][rows][cols]
+	int seatsLevels;		    // 0 or 1
+    std::vector<std::vector<std::vector<Customer>>> seatsVector;    // [level][rows][cols]
 
-	void initSeatsArray();
+	void initSeatsVector();
 
 public:
 	WideBodyPlane(int _id, std::string _airlines, std::string _planeModel, int _seatsLevels, int _seatsCols, int _seatsRows) : Planes(_id, _airlines, _planeModel), seatsLevels(_seatsLevels), seatsCols(_seatsCols), seatsRows(_seatsRows)
     {
-        initSeatsArray();
+        initSeatsVector();
     };
 
     void setSeatsArray(int level, int row, int col, Customer& customer)
     {
         if (row <= seatsRows and row >= 0 and col <= seatsCols and col >= 0 and level <= seatsLevels and level >= 0)
-            seatsArray[level][row][col] = customer;
+            seatsVector[level][row][col] = customer;
         else
             std::cout << "[ ERROR ] Failed to assign a value because its out of array's scope" << std::endl;
     }
@@ -39,7 +39,7 @@ public:
             {
                 for (int col = 0; col < seatsCols; col++)
                 {
-                    if (seatsArray[level][row][col].getPesel() == NULL)
+                    if (seatsVector[level][row][col].getPesel() == NULL)
                         std::cout << "# ";
                     else std::cout << "O ";
                 }

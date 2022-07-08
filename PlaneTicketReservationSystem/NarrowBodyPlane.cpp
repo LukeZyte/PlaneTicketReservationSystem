@@ -1,11 +1,25 @@
 #include "NarrowBodyPlane.h"
 
-void NarrowBodyPlane::initSeatsArray()
-{
-    seatsArray = new Customer* [seatsRows];
+//void NarrowBodyPlane::initSeatsArray()
+//{
+//    seatsArray = new Customer* [seatsRows];
+//
+//    for (int i = 0; i < seatsRows; i++)
+//    {
+//        seatsArray[i] = new Customer [seatsCols];
+//    }
+//}
 
-    for (int i = 0; i < seatsRows; i++)
+void NarrowBodyPlane::initSeatsVector()
+{
+    std::vector<std::vector<Customer>> v2d;
+    for (int row = 0; row < seatsRows; row++)
     {
-        seatsArray[i] = new Customer [seatsCols];
+        std::vector<Customer> v1d;
+        for (int col = 0; col < seatsCols; col++)
+        {
+            v1d.push_back(Customer(NULL, "", "", NULL, ""));
+        }
+        seatsVector.push_back(v1d);
     }
 }
